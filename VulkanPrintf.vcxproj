@@ -29,6 +29,11 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\GLSLComputeShader.comp.spv</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glslangValidator -V $(ProjectDir)\GLSLComputeShader.comp -o $(ProjectDir)\GLSLComputeShader.comp.spv</Command>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compiling GLSL Shader</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\GLSLComputeShader.comp.spv</Outputs>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -39,6 +44,11 @@
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\HLSLComputeShader.comp.spv</Outputs>
       <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
       <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildInParallel>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glslangValidator -V -e main $(ProjectDir)\HLSLComputeShader.comp.hlsl -o $(ProjectDir)\HLSLComputeShader.comp.spv</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compiling HLSL Shader</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\HLSLComputeShader.comp.spv</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <BuildInParallel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildInParallel>
     </CustomBuild>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -97,6 +107,10 @@
     <IncludePath>$(VULKAN_SDK)/Include</IncludePath>
     <LibraryPath>$(VULKAN_SDK)/Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(VULKAN_SDK)/Include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(VULKAN_SDK)/Lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -152,6 +166,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
