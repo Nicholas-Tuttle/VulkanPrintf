@@ -47,6 +47,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL VulkanDebugCallback(
     void *pUserData
 )
 {
+#if SHOW_ONLY_DEBUG_PRINTF_EXT_MESSAGES
     // NOTE:
     // This message filtering can (and probably should) be done as part of the 
     // intialization in "vkCreateDebugUtilsMessengerEXT", using the 
@@ -54,8 +55,6 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL VulkanDebugCallback(
     // The initialization in "CreateDebugMessenger()" does not do any filtering 
     // and it is instead done here to demonstrate one potential usage of the 
     // messageType parameter, but is not optimal.
-
-#if SHOW_ONLY_DEBUG_PRINTF_EXT_MESSAGES
     if (VK_DEBUG_UTILS_MESSAGE_TYPE_VALIDATION_BIT_EXT != messageType)
     {
         return VK_FALSE;
@@ -117,6 +116,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL VulkanReportCallback(
     void *pUserData
 )
 {
+#if SHOW_ONLY_DEBUG_PRINTF_EXT_MESSAGES
     // NOTE:
     // This message filtering can (and probably should) be done as part of the 
     // intialization in "vkCreateDebugReportCallbackEXT", using the 
@@ -124,8 +124,6 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL VulkanReportCallback(
     // The initialization in "CreateReportCallback()" does not do any filtering 
     // and it is instead done here to demonstrate one potential usage of the 
     // flags parameter, but is not optimal.
-
-#if SHOW_ONLY_DEBUG_PRINTF_EXT_MESSAGES
     if (VK_DEBUG_REPORT_INFORMATION_BIT_EXT != flags)
     {
         return VK_FALSE;
